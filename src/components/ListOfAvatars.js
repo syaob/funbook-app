@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, FlatList, Pressable, Image } from "react-native";
 import ListHeaderComponent from './ListHeaderComponent';
+import { UserListContext } from '../context';
 
 export default function ListOfAvatars() {
 
@@ -33,23 +34,27 @@ export default function ListOfAvatars() {
     ];
 
     return (
-        <View style={{
-            zIndex: 100,
-            paddingVertical: 30,
-            paddingLeft: 20,
-            backgroundColor: "rgba(255,255,255, 0.85)",
-          }}
-        >
-          <FlatList
-            data={arrayOfAvatars}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            horizontal
-            ListHeaderComponent={<ListHeaderComponent />}
-            showsHorizontalScrollIndicator={false}
-            snapToInterval={86}
-            decelerationRate='fast'
-          />
-        </View>
+        <UserListContext.Consumer>
+{({userList}) => (
+    <View style={{
+        zIndex: 100,
+        paddingVertical: 30,
+        paddingLeft: 20,
+        backgroundColor: "rgba(255,255,255, 0.85)",
+      }}
+    >
+      <FlatList
+        data={userList}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        horizontal
+        ListHeaderComponent={<ListHeaderComponent />}
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={86}
+        decelerationRate='fast'
+      />
+    </View>
+)}
+        </UserListContext.Consumer>
     )
 }

@@ -15,6 +15,7 @@ import Loading from './src/components/Loading';
 import { ConversationsNavigation } from './src/surfaces/ConversationsNavigation';
 import AppLoading from 'expo-app-loading';
 import { requestBase } from './src/utils/constants';
+import { UserListContext } from './src/context';
 
 
 const Stack = createStackNavigator();
@@ -57,6 +58,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
+      <UserListContext.Provider value={{ userList }}>
       <NavigationContainer>
         <Stack.Navigator>
           {!userLoggedIn ? (
@@ -70,6 +72,7 @@ export default function App() {
           )}
         </Stack.Navigator>
       </NavigationContainer>
+      </UserListContext.Provider>
     </SafeAreaProvider>
   );
 }
