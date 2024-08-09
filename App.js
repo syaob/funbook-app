@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Home from './src/surfaces/Home';
 import Login from './src/surfaces/Login';
-import Feed from './src/surfaces/Feed';
-
-import AddPost from './src/surfaces/AddPost';
-import Favorites from './src/surfaces/Favorites';
-import Profile from './src/surfaces/Profile';
-import Conversations from './src/surfaces/Conversations';
-import { colors } from './src/styles/colors';
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import AppLoading from 'expo-app-loading'; 
+
 import {
   useFonts,
   Poppins_400Regular,
@@ -25,98 +16,6 @@ import { ConversationsNavigation } from './src/surfaces/ConversationsNavigation'
 
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-const ConversationsBase = () => <View style={{ flex: 1 }} />;
-
-function Home() {
-  return (
-    <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
-
-        if (route.name === "Feed") {
-          iconName = focused ? "home" : "home-outline";
-        }else if (route.name === "Conversations") {
-          iconName = focused ? "chatbox" : "chatbox-outline";
-        } else if (route.name === "AddPost") {
-          iconName = focused ? "chatbox" : "chatbox-outline";
-        } else if (route.name === "Favorites") {
-          iconName = focused ? "heart" : "heart-outline";
-        } else if (route.name === "Profile") {
-          iconName = focused ? "person-circle" : "person-circle-outline";
-        }
-
-        return <Ionicons name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: colors.accentStroke,
-      tabBarInactiveTintColor: colors.black,
-      headerTransparent: true,
-        headerTitleAlign: "left",
-        headerStyle: {
-          height: 160,
-        },
-        headerTitleStyle: {
-          textAlign: "left",
-          fontWeight: "bold",
-          fontFamily: "Poppins_700Bold",
-          fontSize: 24,
-        },
-    })}>
-    
-      <Tab.Screen name="Feed" component={Feed} />
-      {/* <Tab.Screen name="Conversations" component={Conversations} /> */}
-      <Tab.Screen
-        name='ConversationsMain'
-          component={ConversationsBase} // just a dummy             component which will never be called
-        options={{
-          tabBarIcon: ({ size }) => (
-              <Ionicons name='chatbox-outline' color='#000000'                size={size} />
-          ),
-        }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            navigation.navigate("ConversationsNav");
-          },
-        })}
-      />
-      <Tab.Screen
-        name='AddPost'
-        component={AddPost}
-        options={{
-          tabBarIcon: ({ size }) => (
-            <View
-              style={{
-                marginTop: -30,
-              }}
-            >
-              <View
-                style={{
-                  position: "absolute",
-                  backgroundColor: "#000000",
-                  padding: 30,
-                  bottom: -10,
-                  left: -13,
-                  borderRadius: 23,
-                  transform: [{ rotate: "-45deg" }],
-                  shadowColor: "#000000",
-                  shadowOffset: { width: 0, height: 4 },
-                  shadowOpacity: 0.2,
-                  shadowRadius: 4,
-                }}
-              />
-                <Ionicons name='add-circle-outline'                  color='#ffffff' size={36} />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen name="Favorites" component={Favorites} />
-      <Tab.Screen name="Profile" component={Profile} />
-    </Tab.Navigator>
-  );
-}
 
 export default function App() {
   const [userLoggedIn, setIsUserLoggedIn] = useState(true);
