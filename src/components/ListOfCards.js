@@ -3,6 +3,7 @@ import { View, Image, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { requestBase } from '../utils/constants';
 import * as SplashScreen from 'expo-splash-screen';
+import { Card } from './Card';
 
 export default function ListOfCards() {
   const [cardList, setCardList] = useState(null);
@@ -31,19 +32,7 @@ export default function ListOfCards() {
   }
 
   const renderItem = ({ item }) => {
-    return (
-      <Image
-        style={{
-          width: '100%',
-          height: 288,
-          borderRadius: 20,
-          marginBottom: 32,
-        }}
-        source={{
-          uri: item.url,
-        }}
-      />
-    );
+    return <Card item={item} />;
   };
 
       const arrayOfImages =[
