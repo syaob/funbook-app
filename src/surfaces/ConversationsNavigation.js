@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import Conversations from "./Conversations";
 import Messages from "./Messages";
 import { createStackNavigator } from "@react-navigation/stack";
-//import { ConversationContext } from "../context";
+import { ConversationContext } from "../context";
 
 const Stack = createStackNavigator();
 
 export const ConversationsNavigation = () => {
-  //const [conversationId, setConversationId] = useState(null);
+  const [conversationId, setConversationId] = useState(null);
   return (
-    // <ConversationContext.Provider
-    //   value={{
-    //     conversationId: conversationId,
-    //     setConversationId: setConversationId,
-    //   }}
-    // >
+    <ConversationContext.Provider
+      value={{
+        conversationId: conversationId,
+        setConversationId: setConversationId,
+      }}
+    >
       <Stack.Navigator
         screenOptions={{
           headerBackTitleVisible: false,
@@ -49,6 +49,6 @@ export const ConversationsNavigation = () => {
           })}
         />
       </Stack.Navigator>
-    // </ConversationContext.Provider>
+    </ConversationContext.Provider>
   );
 };
