@@ -82,7 +82,36 @@ function Home() {
           },
         })}
       />
-      <Tab.Screen name="AddPost" component={AddPost} />
+      <Tab.Screen
+        name='AddPost'
+        component={AddPost}
+        options={{
+          tabBarIcon: ({ size }) => (
+            <View
+              style={{
+                marginTop: -30,
+              }}
+            >
+              <View
+                style={{
+                  position: "absolute",
+                  backgroundColor: "#000000",
+                  padding: 30,
+                  bottom: -10,
+                  left: -13,
+                  borderRadius: 23,
+                  transform: [{ rotate: "-45deg" }],
+                  shadowColor: "#000000",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.2,
+                  shadowRadius: 4,
+                }}
+              />
+                <Ionicons name='add-circle-outline'                  color='#ffffff' size={36} />
+            </View>
+          ),
+        }}
+      />
       <Tab.Screen name="Favorites" component={Favorites} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
