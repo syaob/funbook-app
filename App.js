@@ -13,10 +13,12 @@ import {
 } from "@expo-google-fonts/poppins";
 import Loading from './src/components/Loading';
 import { ConversationsNavigation } from './src/surfaces/ConversationsNavigation';
-import AppLoading from 'expo-app-loading';
 import { requestBase } from './src/utils/constants';
 import { UserListContext } from './src/context';
+import * as SplashScreen from 'expo-splash-screen';
 
+// Prevent the splash screen from auto-hiding before everything is loaded
+SplashScreen.preventAutoHideAsync();
 
 const Stack = createStackNavigator();
 
@@ -25,35 +27,36 @@ export default function App() {
   const [userLoggedIn, setIsUserLoggedIn] = useState(true);
   const [userList, setUserList] = useState(null);
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+ 
 
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_700Bold
   });
 
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
-  async function fetchUserData(id) {
-    const response = await fetch(requestBase + "/users.json");
-    setUserList(await response.json());
+  async function fetchUserData() {
+    try {
+      const response = await fetch(requestBase + "/users.json");
+      const data = await response.json();
+      setUserList(data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   }
 
 
-  if (!fontsLoaded) {
-    return <Loading message="Loading fonts..." />
-  }
-
-  if (!userList) {
-    //return <AppLoading />;
+  // Show a custom loading screen while fonts and user data are loading
+  if (!fontsLoaded || !userList) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> 
-          <Text>Loading users...</Text>
-        </View>
-      )
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+      </View>
+    );
   }
-
  
 
   return (
@@ -84,4 +87,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
