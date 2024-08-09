@@ -97,7 +97,7 @@ export default function ListOfCards() {
         <FlatList 
             data={arrayOfImages}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.itemId}
             showsVerticalScrollIndicator={false}
         />
     </View>
