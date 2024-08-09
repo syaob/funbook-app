@@ -1,11 +1,20 @@
-import React from "react"
-import {View,Text} from "react-native"
+import React from "react";
+import { View, Text } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+const AddPost = () => {
+  const headerHeight = useHeaderHeight();
 
-export default function AddPost() {
   return (
-    <View>
-        <Text>AddPost</Text>
-    </View>
-  )
-}
+    <SafeAreaView style={{ flex: 1, paddingTop: headerHeight }}>
+      <View>
+        <Text style={{ fontFamily: "Poppins_400Regular", fontSize: 20 }}>
+          this will be the add post screen
+        </Text>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default AddPost
