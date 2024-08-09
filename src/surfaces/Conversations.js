@@ -5,8 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ListOfConvos } from "../components/ListOfConvos";
 
-const Conversations = ({ navigation }) => {
-
+export const Conversations = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
   const [text, onChangeText] = React.useState();
 
@@ -70,7 +69,7 @@ const Conversations = ({ navigation }) => {
             placeholder='search contacts'
           />
           <Ionicons
-            name='md-search'
+            name='search'
             size={24}
             color='#000000'
             style={{ position: "absolute", left: 28, top: 6 }}
@@ -106,5 +105,3 @@ const Conversations = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-export default Conversations;
