@@ -1,24 +1,50 @@
-import React from 'react'
-import { View, Image, Text } from "react-native";
-import {FlatList} from "react-native-gesture-handler"
-
+import React, { useEffect, useState } from 'react';
+import { View, Image, Text } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { requestBase } from '../utils/constants';
+import * as SplashScreen from 'expo-splash-screen';
 
 export default function ListOfCards() {
-    const renderItem = ({ item }) => {
-        return (
-            <Image
-              style={{
-                width: "100%",
-                height: 288,
-                borderRadius: 20,
-                marginBottom: 32,
-              }}
-              source={{
-                uri: item.url,
-              }}
-            />
-        );
-      };
+  const [cardList, setCardList] = useState(null);
+
+  useEffect(() => {
+    // Show the splash screen while loading
+    SplashScreen.preventAutoHideAsync();
+    fetchCardData();
+  }, []);
+
+  async function fetchCardData() {
+    try {
+      const response = await fetch(requestBase + '/home.json');
+      const data = await response.json();
+      setCardList(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      // Hide the splash screen once the data is loaded
+      SplashScreen.hideAsync();
+    }
+  }
+
+  if (!cardList) {
+    return null; // Show nothing while the data is loading
+  }
+
+  const renderItem = ({ item }) => {
+    return (
+      <Image
+        style={{
+          width: '100%',
+          height: 288,
+          borderRadius: 20,
+          marginBottom: 32,
+        }}
+        source={{
+          uri: item.url,
+        }}
+      />
+    );
+  };
 
       const arrayOfImages =[
         {
@@ -86,20 +112,20 @@ export default function ListOfCards() {
           "conversations": "16"
         }
       ]
-  return (
-    <View
-      style={{
-        marginTop: -200,
-        paddingHorizontal: 20,
-        marginBottom: 160,
-      }}
-    >
-        <FlatList 
+      return (
+        <View
+          style={{
+            marginTop: -200,
+            paddingHorizontal: 20,
+            marginBottom: 160,
+          }}
+        >
+          <FlatList
             data={arrayOfImages}
             renderItem={renderItem}
-            keyExtractor={(item) => item.itemId}
+            keyExtractor={(item) => item.itemId.toString()} // Convert itemId to string
             showsVerticalScrollIndicator={false}
-        />
-    </View>
-  )
-}
+          />
+        </View>
+      );
+    }
