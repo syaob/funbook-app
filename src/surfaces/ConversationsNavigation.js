@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Conversations from "./Conversations";
-import Messages from "./Messages";
+import { Conversations } from "./Conversations";
+import { Messages } from "./Messages";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ConversationContext } from "../context";
 
