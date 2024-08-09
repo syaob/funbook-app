@@ -16,29 +16,15 @@ export const ListOfConvos = ({ navigation }) => {
     fetchConversationData();
   }, []);
 
-//   if (!conversationsList) {
-//     return <AppLoading />;
-//   }
-
-// if (!conversationsList) {
-//     // Display a loading spinner or custom loading view instead of AppLoading
-//     return (
-//       <View style={styles.loadingContainer}>
-//         <ActivityIndicator size="large" color="#0000ff" />
-//         <Text>Loading conversation item...</Text>
-//       </View>
-//     );
-//   }
-
 if (!conversationsList) {
     // Display a loading spinner or custom loading view instead of AppLoading
     <LoadingActivity text="Loading conversation item..." />
   }
-  
 
   const renderItem = ({ item }) => {
     return <ConversationItem navigation={navigation} item={item} />;
   };
+  
   return (
     <View
       style={{
