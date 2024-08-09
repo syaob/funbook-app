@@ -2,10 +2,10 @@ import React from "react"
 import {View,Text} from "react-native"
 
 
-export default function Conversations() {
+export default function Messages() {
   return (
     <View>
-        <Text>Conversations 2</Text>
+        <Text>Messages</Text>
     </View>
   )
 }

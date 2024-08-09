@@ -21,10 +21,13 @@ import {
   Poppins_700Bold
 } from "@expo-google-fonts/poppins";
 import Loading from './src/components/Loading';
+import { ConversationsNavigation } from './src/surfaces/ConversationsNavigation';
 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const ConversationsBase = () => <View style={{ flex: 1 }} />;
 
 function Home() {
   return (
@@ -63,7 +66,22 @@ function Home() {
     })}>
     
       <Tab.Screen name="Feed" component={Feed} />
-      <Tab.Screen name="Conversations" component={Conversations} />
+      {/* <Tab.Screen name="Conversations" component={Conversations} /> */}
+      <Tab.Screen
+        name='ConversationsMain'
+          component={ConversationsBase} // just a dummy             component which will never be called
+        options={{
+          tabBarIcon: ({ size }) => (
+              <Ionicons name='chatbox-outline' color='#000000'                size={size} />
+          ),
+        }}
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("ConversationsNav");
+          },
+        })}
+      />
       <Tab.Screen name="AddPost" component={AddPost} />
       <Tab.Screen name="Favorites" component={Favorites} />
       <Tab.Screen name="Profile" component={Profile} />
@@ -89,7 +107,11 @@ export default function App() {
         {!userLoggedIn ? (
           <Stack.Screen name="Login" component={Login} />
         ) : (
+          <>
           <Stack.Screen name="Home" component={Home} options={ { headerShown: false } }/>
+          <Stack.Screen name="ConversationsNav" component={ConversationsNavigation} options={ { headerShown: false } }/>
+          </>
+          
         )}
       </Stack.Navigator>
     </NavigationContainer>
